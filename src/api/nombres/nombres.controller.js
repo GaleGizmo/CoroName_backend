@@ -20,5 +20,36 @@ const postNombre =async (req,res,next)=>{
         return next(error)
     }
 }
+const deleteNombre=async (req,res,next)=>{
 
-module.exports={postNombre, getNombres}
+    try {
+
+        const {idNombre}=req.params
+
+        const nombreEliminado = await Nombre.findByIdAndDelete(idNombre)
+
+        return res.status(200).json(nombreEliminado)
+        
+    } catch (error) {
+        return next(error)
+        
+    }
+}
+const editNombre=async(req,res,next)=>{
+    try {
+        const {idNombre}=req.params
+    
+        const nombreToEdit= new Nombre(req.body)
+       
+        nombreToEdit._id=idNombre
+    
+        const nombreEditd= await Nombre.findByIdAndUpdate(idNombre,nombreToEdit, {new:true})
+    
+        return res.status(200).json(nombreEditd)
+    
+        
+    } catch (error) {
+        return next(error)
+    }
+    }
+module.exports={postNombre, getNombres, deleteNombre, editNombre}
