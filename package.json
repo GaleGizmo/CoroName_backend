@@ -2,7 +2,7 @@
   "name": "nuevocoro",
   "main": "index.js",
   "scripts": {
-    "iniciar": "node index.js",
+    "start": "node index.js",
     "dev": "nodemon index.js"
    
   },
