@@ -6,6 +6,6 @@ const { getCoristas, postCorista, deleteCorista, editCorista } = require("./cori
 
 coristasRoutes.get("/", getCoristas);
 coristasRoutes.post("/", postCorista);
-coristasRoutes.delete("/", deleteCorista)
-coristasRoutes.put("/", editCorista)
+coristasRoutes.delete("/:idCorista", deleteCorista)
+coristasRoutes.put("/:idCorista", editCorista)
 module.exports = coristasRoutes;
