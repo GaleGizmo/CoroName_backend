@@ -2,8 +2,8 @@ const sugerenciasRoutes = require("express").Router();
 
 const { postSugerencia, getSugerencias, deleteSugerencia, editSugerencia } = require("./sugerencias.controller");
 
-sugerenciasRoutes.post("/:idSugerencia", postSugerencia);
+sugerenciasRoutes.post("/", postSugerencia);
 sugerenciasRoutes.delete("/:idSugerencia", deleteSugerencia)
 sugerenciasRoutes.get("/", getSugerencias);
-sugerenciasRoutes.put("/", editSugerencia)
+sugerenciasRoutes.put("/:idSugerencia", editSugerencia)
 module.exports = sugerenciasRoutes;
