@@ -6,5 +6,5 @@ const { postNombre, getNombres, deleteNombre, editNombre, addVoto } = require(".
 nombresRoutes.delete("/:idNombre", deleteNombre)
 nombresRoutes.get("/", getNombres);
 nombresRoutes.put("/:idNombre", editNombre)
-nombresRoutes.post("/addVoto", addVoto)
+nombresRoutes.post("/addVoto/:idCorista", addVoto)
 module.exports = nombresRoutes;

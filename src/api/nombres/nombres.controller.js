@@ -49,8 +49,9 @@ const editNombre = async (req, res, next) => {
 };
 const addVoto = async (req, res, next) => {
   try {
-    const { votados, corista } = req.body;
-    let coristaName = await Corista.findById(corista);
+    const { votados } = req.body;
+    const {idCorista} =req.params
+    let coristaName = await Corista.findById(idCorista);
     if (coristaName.voted) {
       await modifyVoto(coristaName, votados);
       return res.status(200).json({coristaName, message: "Votos modificados" });
