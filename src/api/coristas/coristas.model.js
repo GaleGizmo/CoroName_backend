@@ -4,6 +4,7 @@ const coristasSchema =mongoose.Schema(
     {
         name: {type:String, required:true, unique:true},
         voted: {type: Boolean, default: false},
+        logged: {type: Boolean, default: false},
         namesVoted:{type: Array}
             }
 )

@@ -37,14 +37,37 @@ const deleteCorista=async (req,res,next)=>{
 const editCorista=async(req,res,next)=>{
     try {
         const {idCorista}=req.params
+
+        const {logged, name, voted, namesVoted} = req.body
     
-        const coristaToEdit= new Corista(req.body)
+        const coristaToEdit={}
        
-        coristaToEdit._id=idCorista
+      
+
+        if (logged!== undefined){
+            coristaToEdit.logged=logged
+        }
+        if (name!== undefined){
+            coristaToEdit.name=name
+        }
+        if (voted!== undefined){
+            coristaToEdit.voted=voted
+        }
+        if (namesVoted!== undefined){
+            coristaToEdit.namesVoted=namesVoted
+        }
     
-        const coristaEditd= await Corista.findByIdAndUpdate(idCorista,coristaToEdit, {new:true})
+        const coristaUpdated = await Corista.findOneAndUpdate(
+            { _id: idCorista },
+            coristaToEdit,
+            { new: true }
+        );
+        if (!coristaUpdated) {
+            return res.status(404).json({ error: "Corista no encontrado." });
+        }
+
     
-        return res.status(200).json(coristaEditd)
+        return res.status(200).json(coristaUpdated)
     
         
     } catch (error) {

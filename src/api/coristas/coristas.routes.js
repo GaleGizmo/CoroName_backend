@@ -1,4 +1,4 @@
-const coristasRoutes = require("express").Router();
+const coristasRoutes = require ("express").Router();
 
 const { getCoristas, postCorista, deleteCorista, editCorista } = require("./coristas.controller");
 
@@ -7,5 +7,5 @@ const { getCoristas, postCorista, deleteCorista, editCorista } = require("./cori
 coristasRoutes.get("/", getCoristas);
 coristasRoutes.post("/", postCorista);
 coristasRoutes.delete("/:idCorista", deleteCorista)
-coristasRoutes.put("/:idCorista", editCorista)
+coristasRoutes.put("/editCorista/:idCorista", editCorista)
 module.exports = coristasRoutes;
