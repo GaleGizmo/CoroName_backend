@@ -12,6 +12,8 @@ const getNombres = async (req, res, next) => {
 
 const postNombre = async (req, res, next) => {
   try {
+    await Corista.findByIdAndUpdate(req.body.author,{logged:true})
+    
     const newNombre = await new Nombre(req.body);
     await newNombre.save();
     return res.status(201).json(newNombre);
