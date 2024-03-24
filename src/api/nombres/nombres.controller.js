@@ -108,4 +108,56 @@ const addVoto = async (req, res, next) => {
 //   corista.namesVoted = votadosPreviamente;
 //   await corista.save();
 // };
-module.exports = { postNombre, getNombres, deleteNombre, editNombre, addVoto };
+
+
+
+
+// Función para comparar los valores de points
+async function comparePoints() {
+  try {
+    // Obtener todos los documentos de Nombres
+    const nombres = await Nombre.find();
+
+    // Iterar sobre cada documento en Nombres
+    for (const nombre of nombres) {
+      const { _id } = nombre;
+
+      // Buscar todos los coristas que votaron por este nombre
+      const coristasVotantes = await Corista.find({ "namesVoted.votado": _id.toString()});
+
+      if (coristasVotantes.length === 0) {
+        console.log(`Nombre ${_id}: Nadie votó por este nombre.`);
+        continue;
+      }
+
+      // Calcular la suma total de puntos de los coristas votantes
+      let totalPointsFromCoristas = 0;
+      for (const corista of coristasVotantes) {
+        const entry = corista.namesVoted.find((obj) => obj.votado === _id.toString());
+        if (entry) {
+          totalPointsFromCoristas += entry.points;
+        }
+      }
+
+      // Comparar con el valor actual de points en Nombres
+      if (nombre.points === totalPointsFromCoristas) {
+        console.log(`Nombre ${_id}: Puntos coinciden (${nombre.points})`);
+      } else {
+        console.log(
+          `Nombre ${_id}: Puntos no coinciden. Nombres: ${nombre.points}, Coristas: ${totalPointsFromCoristas}`
+        );
+      }
+    }
+  } catch (error) {
+    console.error("Error al comparar puntos:", error);
+  }
+}
+
+// Llama a la función para realizar la comparación
+// comparePoints();
+
+const noMoreVotes = async (req, res, next) =>{
+  return res.status(200).json({  message: "O prazo para votar rematou" })
+}
+
+module.exports = { postNombre, getNombres, deleteNombre, editNombre, addVoto, noMoreVotes };
